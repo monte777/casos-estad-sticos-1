@@ -1,0 +1,80 @@
+## nombres variables: "Codigo_cliente",'Provincia_habitacion','Nivel_academico','Cant_propiedades_consolidado',
+       ##                    'Mon_sal_liquido','Mon_sal_nominal','Num_dependientes','Num_edad_anos','flag_vehiculos','Genero')])
+
+
+
+baseAD2$sal_bruto_cat=ifelse(baseAD2$Mon_sal_nominal<=350000,'menor350',
+                             ifelse(baseAD2$Mon_sal_nominal>350000 &baseAD2$Mon_sal_nominal<=420000,'de350a420',
+                                    ifelse(baseAD2$Mon_sal_nominal>420000 & baseAD2$Mon_sal_nominal<=510000,'de420a510', 
+                                           ifelse(baseAD2$Mon_sal_nominal>510000 & baseAD2$Mon_sal_nominal<=610000,'de510a610',
+                                                  ifelse(baseAD2$Mon_sal_nominal>610000 & baseAD2$Mon_sal_nominal<=700000,'de610a700',
+                                                         ifelse(baseAD2$Mon_sal_nominal>700000 &baseAD2$Mon_sal_nominal<=815000,'de700a815',
+                                                                ifelse(baseAD2$Mon_sal_nominal>815000 & baseAD2$Mon_sal_nominal<=965000,'de815a965',
+                                                                       ifelse(baseAD2$Mon_sal_nominal>965000 & baseAD2$Mon_sal_nominal<=1150000,'de965a1150'
+                                                                              ,'mayor1150'))))))))
+
+
+
+baseAD2$Cant_propiedades_consolidado=ifelse(baseAD2$Cant_propiedades_consolidado==0,'prop0',
+                                            ifelse(baseAD2$Cant_propiedades_consolidado==1,'prop1','propmas2'))
+#############
+colnames(baseAD2)=c('cod_cliente','provincia_habitacion','nivel_academico','Cant_propiedades_consolidado',
+                    'sal_liquido','sal_bruto','num_dependientes_cat','edad','flag_vehiculos','genero','sal_bruto_cat')
+
+
+baseAD2$num_dependientes_cat=as.numeric(baseAD2$num_dependientes_cat)
+baseAD2$num_dependientes_cat=ifelse(baseAD2$num_dependientes_cat>=6,'mas_6',baseAD2$num_dependientes_cat)
+
+
+baseAD2$num_dependientes_cat=as.character(baseAD2$num_dependientes_cat)
+
+baseAD2$sal_liquido=ifelse(baseAD2$sal_liquido<=350000,'Menor 350',
+                           ifelse(baseAD2$sal_liquido>350000 & baseAD2$sal_liquido<=600000,'De 350 a 600',
+                                  ifelse(baseAD2$sal_liquido>600000 & baseAD2$sal_bruto_cat<=1000000,'De 601 a 1 millon',
+                                         ifelse(baseAD2$sal_liquido>1000000 &baseAD2$sal_liquido<=1500000,'De 1 millon a millon y medio',
+                                                'Mayor de millon y medio'))))
+
+
+baseAD2$nivel_academico= ifelse(baseAD2$nivel_academico=='PRIMARIA COMPLETA'|
+                                  baseAD2$nivel_academico=='PRIMARIA INCOMPLETA','PRIMARIA',
+                                ifelse(baseAD2$nivel_academico=='TECNICO'|
+                                         baseAD2$nivel_academico=='TECNICO MEDIO'|
+                                         baseAD2$nivel_academico=='DIPLOMADO','TECNICO',
+                                       baseAD2$nivel_academico))
+
+
+baseAD2$genero=ifelse(baseAD2$genero=='Sin Definir','Masculino','Femenino')
+
+baseAD2$edad=ifelse(baseAD2$edad<=25,'Menor 25',
+                    ifelse(baseAD2$edad>25 &baseAD2$edad<=35,'De 26 a 35',
+                           ifelse(baseAD2$edad>35 & baseAD2$edad<=50,'De 36 a 50',
+                                  'Mayor de 51') ))
+
+baseAD2$flag_vehiculos=ifelse(is.na(baseAD2$flag_vehiculos)==FALSE,baseAD2$flag_vehiculos,'No tiene')
+baseAD2$Cant_propiedades_consolidado=ifelse(is.na(baseAD2$Cant_propiedades_consolidado)==FALSE,baseAD2$Cant_propiedades_consolidado,'prop0')
+load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo2.Rdata")
+load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo3.Rdata")
+load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo4.Rdata")
+baseAD2$PUNT_MOD21=predict(mod2,baseAD2)
+baseAD2$PUNT_MOD31=predict(mod3,baseAD2)
+baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
+
+
+
+
+
+
+library(scales)
+
+baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
+baseAD2$puntaje3=rescale(baseAD2$puntaje3,to=c(0,5))
+
+
+
+###prueba puntos
+baseAD2$perfil3=ifelse(baseAD2$puntaje3>=3.2,'5',
+                       ifelse(baseAD2$puntaje3>=2.4 & baseAD2$puntaje3<3.2,'4',
+                              ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
+                                     ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2',
+                                            '1'))))
+
