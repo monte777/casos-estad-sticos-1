@@ -60,15 +60,15 @@ perfil <- function(req,
         
 # script original
         
-        baseAD2<- data.frame(Codigo_cliente=baseAD2$Codigo_cliente[1],
-                              Genero= baseAD2$Genero[1],
-                              Mon_sal_nominal=  baseAD2$Mon_sal_nominal[1],
-                              Mon_sal_liquido=  baseAD2$Mon_sal_liquido[1],
-                              Num_dependientes=  baseAD2$Num_dependientes[1],
-                              Nivel_academico=  baseAD2$Nivel_academico[1],
-                              flag_vehiculos=  baseAD2$flag_vehiculos[1],
-                              Cant_propiedades_consolidado=  baseAD2$Cant_propiedades_consolidado[1],
-                              Num_edad_anos=  baseAD2$Num_edad_anos[1])
+        baseAD2<- data.frame(Codigo_cliente=perfil$Codigo_cliente[1],
+                              Genero= perfil$Genero[1],
+                              Mon_sal_nominal=  perfil$Mon_sal_nominal[1],
+                              Mon_sal_liquido=  perfil$Mon_sal_liquido[1],
+                              Num_dependientes=  perfil$Num_dependientes[1],
+                              Nivel_academico=  perfil$Nivel_academico[1],
+                              flag_vehiculos=  perfil$flag_vehiculos[1],
+                              Cant_propiedades_consolidado=  perfil$Cant_propiedades_consolidado[1],
+                              Num_edad_anos=  perfil$Num_edad_anos[1])
         
 ##Recode
         
