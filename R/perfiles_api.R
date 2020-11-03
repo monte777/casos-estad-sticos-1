@@ -140,7 +140,7 @@ perfil <- function(req,
         
   # perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
 
-  perfil_final <- data.frame(cod_cliente="304350662",perfil="4")
+  perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4")
   
   return(perfil_final) 
   },  error = function(err) {
