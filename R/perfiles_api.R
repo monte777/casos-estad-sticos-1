@@ -28,15 +28,14 @@ api_info <- function() {
 #* @post /perfil
 perfil <- function(req,
                       Codigo_cliente,
-                      edad,
-                      genero,
-                      sal_bruto,
-                      sal_liquido,
-                      cant_dependientes,
-                      nivel_academico,
-                      rel_cuota_ingreso,
-                      flag_Vehiculos,
-                      cant_propiedades) {
+                      Genero,
+                      Mon_sal_nominal, 
+                      Mon_sal_liquido, 
+                      Num_dependientes, 
+                      Nivel_academico, 
+                      flag_vehiculos, 
+                      Cant_propiedades_consolidado,
+                      Num_edad_anos) {
   
   if (!("HTTP_API_KEY" %in% names(req))) {
     return("ERROR: Llamado no autorizado")
