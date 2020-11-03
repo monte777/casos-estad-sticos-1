@@ -1,9 +1,17 @@
 ## nombres variables: "Codigo_cliente",'Provincia_habitacion','Nivel_academico','Cant_propiedades_consolidado',
        ##                    'Mon_sal_liquido','Mon_sal_nominal','Num_dependientes','Num_edad_anos','flag_vehiculos','Genero')])
-
-
-
-baseAD2$sal_bruto_cat=ifelse(baseAD2$Mon_sal_nominal<=350000,'menor350',
+load("//junquillal.coope.local/Redirection/jumaroto/My Documents/basead2.Rdata")
+baseAD2<- baseAD2 %>%
+  select(Codigo_cliente,
+         Genero,
+         Mon_sal_nominal,
+         Mon_sal_liquido,
+         Num_dependientes,
+         Nivel_academico,
+         flag_vehiculos,
+         Cant_propiedades_consolidado,
+         Num_edad_anos)
+baseAD2$Mon_sal_nominal=ifelse(baseAD2$Mon_sal_nominal<=350000,'menor350',
                              ifelse(baseAD2$Mon_sal_nominal>350000 &baseAD2$Mon_sal_nominal<=420000,'de350a420',
                                     ifelse(baseAD2$Mon_sal_nominal>420000 & baseAD2$Mon_sal_nominal<=510000,'de420a510', 
                                            ifelse(baseAD2$Mon_sal_nominal>510000 & baseAD2$Mon_sal_nominal<=610000,'de510a610',
@@ -15,13 +23,16 @@ baseAD2$sal_bruto_cat=ifelse(baseAD2$Mon_sal_nominal<=350000,'menor350',
 
 
 
+
 baseAD2$Cant_propiedades_consolidado=ifelse(baseAD2$Cant_propiedades_consolidado==0,'prop0',
                                             ifelse(baseAD2$Cant_propiedades_consolidado==1,'prop1','propmas2'))
 #############
-colnames(baseAD2)=c('cod_cliente','provincia_habitacion','nivel_academico','Cant_propiedades_consolidado',
-                    'sal_liquido','sal_bruto','num_dependientes_cat','edad','flag_vehiculos','genero','sal_bruto_cat')
+colnames(baseAD2)=c('cod_cliente','genero','sal_bruto_cat','sal_liquido','num_dependientes_cat',
+                    'nivel_academico','flag_vehiculos','Cant_propiedades_consolidado',
+                    'edad')
 
 
+baseAD2$num_dependientes_cat=ifelse(is.na(baseAD2$num_dependientes_cat)==TRUE,0,baseAD2$num_dependientes_cat)
 baseAD2$num_dependientes_cat=as.numeric(baseAD2$num_dependientes_cat)
 baseAD2$num_dependientes_cat=ifelse(baseAD2$num_dependientes_cat>=6,'mas_6',baseAD2$num_dependientes_cat)
 
@@ -30,9 +41,10 @@ baseAD2$num_dependientes_cat=as.character(baseAD2$num_dependientes_cat)
 
 baseAD2$sal_liquido=ifelse(baseAD2$sal_liquido<=350000,'Menor 350',
                            ifelse(baseAD2$sal_liquido>350000 & baseAD2$sal_liquido<=600000,'De 350 a 600',
-                                  ifelse(baseAD2$sal_liquido>600000 & baseAD2$sal_bruto_cat<=1000000,'De 601 a 1 millon',
+                                  ifelse(baseAD2$sal_liquido>600000 & baseAD2$sal_liquido<=1000000,'De 601 a 1 millon',
                                          ifelse(baseAD2$sal_liquido>1000000 &baseAD2$sal_liquido<=1500000,'De 1 millon a millon y medio',
                                                 'Mayor de millon y medio'))))
+
 
 
 baseAD2$nivel_academico= ifelse(baseAD2$nivel_academico=='PRIMARIA COMPLETA'|

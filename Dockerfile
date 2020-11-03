@@ -32,7 +32,7 @@ RUN R -e "devtools::install_version('plumber', version = '0.4.4', repos = 'https
 RUN R -e "devtools::install_version('jsonlite', version = '1.5', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('scales', version = '1.1.1', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('readr', version = '1.1.1', repos = 'https://cloud.r-project.org')"
-
+RUN R -e "devtools::install_version('base', version = '4.0.2', repos = 'https://cloud.r-project.org')"
 
 ENV LANG=en_US.utf-8
 ENV LC_ALL=en_US.UTF-8
