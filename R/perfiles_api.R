@@ -5,9 +5,9 @@ library(scales)
 library(base)
 
 
-load("../modelo2.Rdata")
-load("../modelo3.Rdata")
-load("../modelo4.Rdata")
+load("modelo2.Rdata")
+load("modelo3.Rdata")
+load("modelo4.Rdata")
 
 
 #* @apiTitle Servicio Perfiles
