@@ -4,9 +4,9 @@ library(readr)
 library(scales)
 #library(base)
 
-load("data/modelo2.RData")
-load("data/modelo3.RData")
-load("data/modelo4.RData")
+load("../data/modelo2.RData")
+load("../data/modelo3.RData")
+load("../data/modelo4.RData")
 
 
 
