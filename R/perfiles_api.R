@@ -1,5 +1,7 @@
 options(encoding = "UTF-8")
 
+#setwd("casos-estad-sticos-1")
+
 library(readr)
 library(scales)
 library(dplyr)
@@ -7,9 +9,9 @@ library(caret)
 
 #library(base)
 
-load("../data/modelo2.RData")
-load("../data/modelo3.RData")
-load("../data/modelo4.RData")
+load("casos-estad-sticos-1/data/modelo2.RData")
+load("casos-estad-sticos-1/data/modelo3.RData")
+load("casos-estad-sticos-1/data/modelo4.RData")
 
 
 
