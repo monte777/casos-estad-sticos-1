@@ -9,9 +9,9 @@ library(caret)
 
 #library(base)
 
-load("../casos-estad-sticos-1/data/modelo2.RData")
-load("../casos-estad-sticos-1/data/modelo3.RData")
-load("../casos-estad-sticos-1/data/modelo4.RData")
+load("modelo2.RData")
+load("modelo3.RData")
+load("modelo4.RData")
 
 
 
