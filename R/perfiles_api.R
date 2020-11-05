@@ -2,11 +2,13 @@ options(encoding = "UTF-8")
 
 library(readr)
 library(scales)
+library(stats)
+
 #library(base)
 
-load("../data/modelo2.RData")
-load("../data/modelo3.RData")
-load("../data/modelo4.RData")
+load("data/modelo2.RData")
+load("data/modelo3.RData")
+load("data/modelo4.RData")
 
 
 
