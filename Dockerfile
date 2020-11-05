@@ -28,7 +28,7 @@ RUN microdnf install R --enablerepo=epel --enablerepo=rhel-7-server-optional-rpm
 
 RUN R -e "install.packages('devtools', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('plumber', version = '0.4.4', repos = 'https://cloud.r-project.org')"
-RUN R -e "devtools::install_version('stats', version = '0.1.0', repos = 'https://cloud.r-project.org')"
+RUN R -e "devtools::install_version('dplyr', version = '0.7.5', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('jsonlite', version = '1.5', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('caret', version = '6.0-78', repos = 'https://cloud.r-project.org')"
 RUN R -e "devtools::install_version('Iso', version = '0.0-17', repos = 'https://cloud.r-project.org')"

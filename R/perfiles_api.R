@@ -2,7 +2,9 @@ options(encoding = "UTF-8")
 
 library(readr)
 library(scales)
-library(stats)
+library(dplyr)
+library(caret)
+library(ranger)
 
 #library(base)
 
