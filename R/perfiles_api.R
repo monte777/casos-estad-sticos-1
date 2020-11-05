@@ -4,7 +4,6 @@ library(readr)
 library(scales)
 library(dplyr)
 library(caret)
-library(ranger)
 
 #library(base)
 
