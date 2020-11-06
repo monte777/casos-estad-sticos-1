@@ -6,7 +6,6 @@ options(encoding = "UTF-8")
 library(plumber)
 library(jsonlite)
 library(scales)
-library(readr)
 
 r <- plumb("R/perfiles_api.R")
 # Arranca servicio
