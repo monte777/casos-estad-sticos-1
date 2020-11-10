@@ -6,10 +6,9 @@ library(scales)
 library(dplyr)
 
 
-load("data/modelo2.RData")
-load("data/modelo3.RData")
-load("data/modelo4.RData")
-
+# load("data/modelo2.RData")
+# load("data/modelo3.RData")
+# load("data/modelo4.RData")
 
 
 #* @apiTitle Servicio Perfiles
@@ -124,25 +123,25 @@ perfil <- function(req,
   
 ## Modelos
   
-  baseAD2$PUNT_MOD21=predict(mod2,baseAD2)
-  baseAD2$PUNT_MOD31=predict(mod3,baseAD2)
-  baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
+ #  baseAD2$PUNT_MOD21=predict(mod2,baseAD2)
+ #  baseAD2$PUNT_MOD31=predict(mod3,baseAD2)
+ #  baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
+ # 
+ # 
+ #  baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
+ # # baseAD2$puntaje3=rescale(baseAD2$puntaje3,to=c(0,5))
+ # 
+ # 
+ # 
+ #  ##prueba puntos
+ #  baseAD2$perfil3=ifelse(baseAD2$puntaje3>=3.2,'5',
+ #                  ifelse(baseAD2$puntaje3>=2.4 & baseAD2$puntaje3<3.2,'4',
+ #                  ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
+ #                  ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2','1'))))
+ # 
+ #  perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
 
-
-  baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
-  baseAD2$puntaje3=rescale(baseAD2$puntaje3,to=c(0,5))
-
-
-
-  ##prueba puntos
-  baseAD2$perfil3=ifelse(baseAD2$puntaje3>=3.2,'5',
-                  ifelse(baseAD2$puntaje3>=2.4 & baseAD2$puntaje3<3.2,'4',
-                  ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
-                  ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2','1'))))
-
-  perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
-
-  perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4")
+  perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4",revisar=getwd())
   
   return(perfil_final) 
   },  error = function(err) {
