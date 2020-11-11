@@ -61,15 +61,15 @@ perfil <- function(req,
         
 # script original
         
-        baseAD2<- data.frame(Codigo_cliente=perfil$Codigo_cliente[1],
-                              Genero= perfil$Genero[1],
-                              Mon_sal_nominal=  perfil$Mon_sal_nominal[1],
-                              Mon_sal_liquido=  perfil$Mon_sal_liquido[1],
-                              Num_dependientes=  perfil$Num_dependientes[1],
-                              Nivel_academico=  perfil$Nivel_academico[1],
-                              flag_vehiculos=  perfil$flag_vehiculos[1],
-                              Cant_propiedades_consolidado=  perfil$Cant_propiedades_consolidado[1],
-                              Num_edad_anos=  perfil$Num_edad_anos[1])
+        baseAD2<- data.frame(Codigo_cliente=baseAD2$Codigo_cliente[1],
+                              Genero= baseAD2$Genero[1],
+                              Mon_sal_nominal=  baseAD2$Mon_sal_nominal[1],
+                              Mon_sal_liquido=  baseAD2$Mon_sal_liquido[1],
+                              Num_dependientes=  baseAD2$Num_dependientes[1],
+                              Nivel_academico=  baseAD2$Nivel_academico[1],
+                              flag_vehiculos=  baseAD2$flag_vehiculos[1],
+                              Cant_propiedades_consolidado=  baseAD2$Cant_propiedades_consolidado[1],
+                              Num_edad_anos=  baseAD2$Num_edad_anos[1])
         
 ##Recode
         
@@ -123,7 +123,7 @@ perfil <- function(req,
   
 ## Modelos
   
-  baseAD2$PUNT_MOD21<-  0.043438 +
+  baseAD2$PUNT_MOD21<-  as.numeric(0.043438 +
   -0.011060* baseAD2 %>% select(flag_vehiculos) %>% mutate(flag_vehiculos=ifelse(flag_vehiculos=="tiene",1,0)) +
   -0.004613* baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de350a420",1,0)) +
   -0.001645*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de420a510",1,0))+
@@ -132,11 +132,11 @@ perfil <- function(req,
   -0.019472*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de700a815",1,0))+
   -0.021973*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de815a965",1,0))+
   -0.029897*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de965a1150",1,0))+
-  -0.030188*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="sal_bruto_catmayor1150",1,0))  
+  -0.030188*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="sal_bruto_catmayor1150",1,0))  )
   
   
   
-  baseAD2$PUNT_MOD31= 0.017356 +
+  baseAD2$PUNT_MOD31= as.numeric(0.017356 +
     0.002492* baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="SECUNDARIA COMPLETA",1,0)) +
     0.007945* baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="SECUNDARIA INCOMPLETA",1,0)) +
     0.005169*baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="TECNICO",1,0))+
@@ -145,17 +145,17 @@ perfil <- function(req,
     0.006956*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="De 350 a 600",1,0))+
     0.004043*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="De 601 a 1 millon",1,0))+
     0.015925*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="Mayor de millon y medio",1,0))+
-    0.009029*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="Menor 350",1,0))
+    0.009029*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="Menor 350",1,0)))
   
 
   
-    baseAD2$PUNT_MOD41= 0.020031 +
+    baseAD2$PUNT_MOD41= as.numeric(0.020031 +
       0.007169 * baseAD2 %>% select(genero) %>% mutate(genero=ifelse(genero=="Masculino",1,0)) +
       -0.002765 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="De 36 a 50",1,0)) +
       -0.006284 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="Mayor de 51",1,0))+
       -0.004781 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="Menor 25",1,0))+
       -0.011113 * baseAD2 %>% select(Cant_propiedades_consolidado) %>% mutate(Cant_propiedades_consolidado=ifelse(Cant_propiedades_consolidado=="prop1",1,0)) +
-      -0.016006 * baseAD2 %>% select(Cant_propiedades_consolidado) %>% mutate(Cant_propiedades_consolidado=ifelse(Cant_propiedades_consolidado=="propmas2",1,0))
+      -0.016006 * baseAD2 %>% select(Cant_propiedades_consolidado) %>% mutate(Cant_propiedades_consolidado=ifelse(Cant_propiedades_consolidado=="propmas2",1,0)))
     
     
   baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
@@ -171,7 +171,7 @@ perfil <- function(req,
 
   perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
 
-  perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4",revisar=getwd())
+  #perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4",revisar=getwd())
   
   return(perfil_final) 
   },  error = function(err) {
