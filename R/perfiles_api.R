@@ -65,7 +65,7 @@ perfil <- function(req,
           Identificacion= "Valor incorrecto"
         }      
         
-        if (perfil$nivel_academico %noin% c("BACHILLER EDUCACION",   "DIPLOMADO",  "OTRO",  "PRIMARIA COMPLETA", "PRIMARIA INCOMPLETA", "SECUNDARIA COMPLETA", "SECUNDARIA INCOMPLETA", "TECNICO", "TECNICO MEDIO", "UNIVERSIDAD COMPLETA", "UNIVERSIDAD INCOMPLETA")) {
+        if (perfil$Nivel_academico %noin% c("BACHILLER EDUCACION",   "DIPLOMADO",  "OTRO",  "PRIMARIA COMPLETA", "PRIMARIA INCOMPLETA", "SECUNDARIA COMPLETA", "SECUNDARIA INCOMPLETA", "TECNICO", "TECNICO MEDIO", "UNIVERSIDAD COMPLETA", "UNIVERSIDAD INCOMPLETA")) {
           warning("Verificar con el proveedor para incluir el nivel academico")
       }
 
