@@ -6,9 +6,9 @@ library(scales)
 library(dplyr)
 
 
-# load("data/modelo2.RData")
-# load("data/modelo3.RData")
-# load("data/modelo4.RData")
+ load("data/modelo2.RData")
+ load("data/modelo3.RData")
+ load("data/modelo4.RData")
 
 
 #* @apiTitle Servicio Perfiles
@@ -123,23 +123,53 @@ perfil <- function(req,
   
 ## Modelos
   
- #  baseAD2$PUNT_MOD21=predict(mod2,baseAD2)
- #  baseAD2$PUNT_MOD31=predict(mod3,baseAD2)
- #  baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
- # 
- # 
- #  baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
- # # baseAD2$puntaje3=rescale(baseAD2$puntaje3,to=c(0,5))
- # 
- # 
- # 
- #  ##prueba puntos
- #  baseAD2$perfil3=ifelse(baseAD2$puntaje3>=3.2,'5',
- #                  ifelse(baseAD2$puntaje3>=2.4 & baseAD2$puntaje3<3.2,'4',
- #                  ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
- #                  ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2','1'))))
- # 
- #  perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
+  baseAD2$PUNT_MOD21<-  0.043438 +
+  -0.011060* baseAD2 %>% select(flag_vehiculos) %>% mutate(flag_vehiculos=ifelse(flag_vehiculos=="tiene",1,0)) +
+  -0.004613* baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de350a420",1,0)) +
+  -0.001645*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de420a510",1,0))+
+  -0.011581*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de510a610",1,0))+
+  -0.013871*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de610a700",1,0))+
+  -0.019472*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de700a815",1,0))+
+  -0.021973*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de815a965",1,0))+
+  -0.029897*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="de965a1150",1,0))+
+  -0.030188*baseAD2 %>% select(sal_bruto_cat) %>% mutate(sal_bruto_cat=ifelse(sal_bruto_cat=="sal_bruto_catmayor1150",1,0))  
+  
+  
+  
+  baseAD2$PUNT_MOD31= 0.017356 +
+    0.002492* baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="SECUNDARIA COMPLETA",1,0)) +
+    0.007945* baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="SECUNDARIA INCOMPLETA",1,0)) +
+    0.005169*baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="TECNICO",1,0))+
+    -0.018026*baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="UNIVERSIDAD COMPLETA",1,0))+
+    -0.001014*baseAD2 %>% select(nivel_academico) %>% mutate(nivel_academico=ifelse(nivel_academico=="UNIVERSIDAD INCOMPLETA",1,0))+
+    0.006956*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="De 350 a 600",1,0))+
+    0.004043*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="De 601 a 1 millon",1,0))+
+    0.015925*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="Mayor de millon y medio",1,0))+
+    0.009029*baseAD2 %>% select(sal_liquido) %>% mutate(sal_liquido=ifelse(sal_liquido=="Menor 350",1,0))
+  
+
+  
+    baseAD2$PUNT_MOD41= 0.020031 +
+      0.007169 * baseAD2 %>% select(genero) %>% mutate(genero=ifelse(genero=="Masculino",1,0)) +
+      -0.002765 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="De 36 a 50",1,0)) +
+      -0.006284 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="Mayor de 51",1,0))+
+      -0.004781 * baseAD2 %>% select(edad) %>% mutate(edad=ifelse(edad=="Menor 25",1,0))+
+      -0.011113 * baseAD2 %>% select(Cant_propiedades_consolidado) %>% mutate(Cant_propiedades_consolidado=ifelse(Cant_propiedades_consolidado=="prop1",1,0)) +
+      -0.016006 * baseAD2 %>% select(Cant_propiedades_consolidado) %>% mutate(Cant_propiedades_consolidado=ifelse(Cant_propiedades_consolidado=="propmas2",1,0))
+    
+    
+  baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
+  baseAD2$puntaje3=rescale(baseAD2$puntaje3,to=c(0,5))
+
+
+
+  ##prueba puntos
+  baseAD2$perfil3=ifelse(baseAD2$puntaje3>=3.2,'5',
+                  ifelse(baseAD2$puntaje3>=2.4 & baseAD2$puntaje3<3.2,'4',
+                  ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
+                  ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2','1'))))
+
+  perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
 
   perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4",revisar=getwd())
   
