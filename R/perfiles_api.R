@@ -28,7 +28,7 @@ api_info <- function() {
 #* Calcula el perfil del cliente
 #* @post /perfil
 perfil <- function(req,
-                      Codigo_cliente,
+                   Identificacion,
                       Genero,
                       Mon_sal_nominal, 
                       Mon_sal_liquido, 
