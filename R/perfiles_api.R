@@ -6,9 +6,9 @@ library(scales)
 library(dplyr)
 
 
- load("data/modelo2.RData")
- load("data/modelo3.RData")
- load("data/modelo4.RData")
+ # load("data/modelo2.RData")
+ # load("data/modelo3.RData")
+ # load("data/modelo4.RData")
 
 
 #* @apiTitle Servicio Perfiles
