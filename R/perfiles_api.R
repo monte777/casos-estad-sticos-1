@@ -48,7 +48,7 @@ perfil <- function(req,
       tryCatch({
         
         perfil <- data.frame(
-          Codigo_cliente,
+          Identificacion,
           Genero,
           Mon_sal_nominal, 
           Mon_sal_liquido, 
@@ -58,7 +58,67 @@ perfil <- function(req,
           Cant_propiedades_consolidado,
           Num_edad_anos
         )
+# Errores
+        `%noin%` <- Negate(`%in%`)
         
+        if (nchar((perfil$Identificacion)) >8 ){
+          Identificacion= "Valor incorrecto"
+        }      
+        
+        if (perfil$nivel_academico %noin% c("BACHILLER EDUCACION",   "DIPLOMADO",  "OTRO",  "PRIMARIA COMPLETA", "PRIMARIA INCOMPLETA", "SECUNDARIA COMPLETA", "SECUNDARIA INCOMPLETA", "TECNICO", "TECNICO MEDIO", "UNIVERSIDAD COMPLETA", "UNIVERSIDAD INCOMPLETA")) {
+          warning("Verificar con el proveedor para incluir el nivel academico")
+      }
+
+if (perfil$Genero  %noin% c("Femenino", "Masculino")) {
+  warning("Verificar el Genero")
+    }
+
+  if (is.na(as.numeric(perfil$num_dependientes))) {
+    warning("Verificar Numero de dependientes")
+}
+
+if (is.null(as.numeric(perfil$Num_dependientes_cat))) {
+  warning("Verificar Numero de dependientes")
+}
+
+if (perfil$flag_vehiculos %noin% c("Tiene","No tiene")) {
+  warning("Verificar el flag vehículos")
+}
+
+
+if (is.na(as.numeric(perfil$Mon_sal_nominal))) {
+  warning("Verificar Monto de salario nominal es NA")
+}
+
+if (is.null(as.numeric(perfil$Mon_sal_nominal))) {
+  warning("Verificar Monto de salario nominal es NULL")
+}
+
+if (is.na(as.numeric(perfil$Mon_sal_liquido))) {
+  warning("Verificar Monto de salario liquido es NA")
+}
+
+if (is.null(as.numeric(perfil$Mon_sal_liquido))) {
+  warning("Verificar Monto de salario liquido es NULL")
+}
+
+if (is.na(as.numeric(perfil$Cant_propiedades_consolidado))) {
+  warning("Verificar Cantidad de propiedades es NA")
+}
+
+if (is.null(as.numeric(perfil$Cant_propiedades_consolidado))) {
+  warning("Verificar Cantidad de propiedades es NULL")
+}
+
+if (is.na(as.numeric(perfil$Num_edad_anos))) {
+  warning("Verificar Cantidad de propiedades es NA")
+}
+
+if (is.null(as.numeric(perfil$Num_edad_anos))) {
+  warning("Verificar Cantidad de propiedades es NULL")
+}
+  
+
 # script original
         
         baseAD2<- data.frame(Codigo_cliente=baseAD2$Codigo_cliente[1],
