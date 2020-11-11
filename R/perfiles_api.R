@@ -121,7 +121,7 @@ if (is.null(as.numeric(perfil$Num_edad_anos))) {
 
 # script original
         
-        baseAD2<- data.frame(Codigo_cliente=baseAD2$Codigo_cliente[1],
+        baseAD2<- data.frame(Identificacion=baseAD2$Identificacion[1],
                               Genero= baseAD2$Genero[1],
                               Mon_sal_nominal=  baseAD2$Mon_sal_nominal[1],
                               Mon_sal_liquido=  baseAD2$Mon_sal_liquido[1],
@@ -148,7 +148,7 @@ if (is.null(as.numeric(perfil$Num_edad_anos))) {
   baseAD2$Cant_propiedades_consolidado=ifelse(baseAD2$Cant_propiedades_consolidado==0,'prop0',
                                        ifelse(baseAD2$Cant_propiedades_consolidado==1,'prop1','propmas2'))
   
-  colnames(baseAD2)=c('cod_cliente','genero','sal_bruto_cat','sal_liquido','num_dependientes_cat',
+  colnames(baseAD2)=c('Identificacion','genero','sal_bruto_cat','sal_liquido','num_dependientes_cat',
                             'nivel_academico','flag_vehiculos','Cant_propiedades_consolidado',
                             'edad')
         
@@ -229,7 +229,7 @@ if (is.null(as.numeric(perfil$Num_edad_anos))) {
                   ifelse(baseAD2$puntaje3>=1.65 & baseAD2$puntaje3<2.4,'3',
                   ifelse(baseAD2$puntaje3<1.65 & baseAD2$puntaje3>=1.,'2','1'))))
 
-  perfil_final <- data.frame(cod_cliente=baseAD2$cod_cliente,perfil=baseAD2$perfil3)
+  perfil_final <- data.frame(Identificacion=baseAD2$Identificacion,perfil=baseAD2$perfil3)
 
   #perfil_final <- data.frame(cod_cliente=perfil$Codigo_cliente,perfil="4",revisar=getwd())
   
