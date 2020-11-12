@@ -17,6 +17,8 @@ baseAD2<- baseAD2 %>%
          flag_vehiculos,
          Cant_propiedades_consolidado,
          Num_edad_anos)
+
+
 baseAD2$Mon_sal_nominal=ifelse(baseAD2$Mon_sal_nominal<=350000,'menor350',
                              ifelse(baseAD2$Mon_sal_nominal>350000 &baseAD2$Mon_sal_nominal<=420000,'de350a420',
                                     ifelse(baseAD2$Mon_sal_nominal>420000 & baseAD2$Mon_sal_nominal<=510000,'de420a510', 

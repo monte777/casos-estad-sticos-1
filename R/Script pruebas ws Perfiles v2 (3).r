@@ -1,6 +1,10 @@
 ## nombres variables: "Codigo_cliente",'Provincia_habitacion','Nivel_academico','Cant_propiedades_consolidado',
        ##                    'Mon_sal_liquido','Mon_sal_nominal','Num_dependientes','Num_edad_anos','flag_vehiculos','Genero')])
-load("//junquillal.coope.local/Redirection/jumaroto/My Documents/basead2.Rdata")
+
+load("C:/Users/pmontenegro/Desktop/Pedro Montenegro M/Pedro Montenegro/casos-estad-sticos-1/R/basead2 (2).rdata")
+load("C:/Users/pmontenegro/Desktop/Pedro Montenegro M/Pedro Montenegro/casos-estad-sticos-1/R/modelo2.Rdata")
+load("C:/Users/pmontenegro/Desktop/Pedro Montenegro M/Pedro Montenegro/casos-estad-sticos-1/R/modelo3.Rdata")
+load("C:/Users/pmontenegro/Desktop/Pedro Montenegro M/Pedro Montenegro/casos-estad-sticos-1/R/modelo4.Rdata")
 baseAD2<- baseAD2 %>%
   select(Identificacion,
          Genero,
@@ -63,17 +67,9 @@ baseAD2$edad=ifelse(baseAD2$edad<=25,'Menor 25',
 
 baseAD2$flag_vehiculos=ifelse(is.na(baseAD2$flag_vehiculos)==FALSE,baseAD2$flag_vehiculos,'No tiene')
 baseAD2$Cant_propiedades_consolidado=ifelse(is.na(baseAD2$Cant_propiedades_consolidado)==FALSE,baseAD2$Cant_propiedades_consolidado,'prop0')
-load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo2.Rdata")
-load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo3.Rdata")
-load("//junquillal.coope.local/Redirection/jumaroto/My Documents/modelo4.Rdata")
 baseAD2$PUNT_MOD21=predict(mod2,baseAD2)
 baseAD2$PUNT_MOD31=predict(mod3,baseAD2)
 baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
-
-
-
-baseAD2=subset(baseAD2,baseAD2$Identificacion=='101960418')
-
 
 
 baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
@@ -86,4 +82,6 @@ baseAD2$perfil4=ifelse(baseAD2$puntaje3>=0.07293339,'5',
                               ifelse(baseAD2$puntaje3>=0.03729671 & baseAD2$puntaje3<0.05453881,'3',
                                      ifelse(baseAD2$puntaje3<0.03729671 & baseAD2$puntaje3>0.02218088,'2',
                                             '1'))))
+
+original=subset(baseAD2,baseAD2$Identificacion=='101960418')
 
