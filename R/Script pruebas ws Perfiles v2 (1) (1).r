@@ -80,7 +80,7 @@ baseAD2$PUNT_MOD41=predict(mod4,baseAD2)
 
 library(scales)
 
-baseAD2<- baseAD2 %>% filter(cod_cliente=="101960418")
+#baseAD2<- baseAD2 %>% filter(cod_cliente=="101960418")
 
 
 baseAD2$puntaje3= baseAD2$PUNT_MOD21+baseAD2$PUNT_MOD31+baseAD2$PUNT_MOD41
